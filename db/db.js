@@ -1,3 +1,5 @@
+// Add this at the very top of db.js
+require('dotenv').config();
 const mysql = require('mysql2/promise');
 
 const connection = mysql.createConnection({
