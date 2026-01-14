@@ -1,7 +1,7 @@
 const express = require('express');
 const OpenAI = require('openai');
 const { body, param, validationResult } = require('express-validator');
-const { getAllPapers, createMessage, getAllMessages, deleteAllMessages, createAIFeedback, getAIFeedbackByMessageId, saveEvaluationQuestions, getEvaluationQuestions } = require('../db');
+const { getAllPapers, createMessage, getAllMessages, deleteAllMessages, createAIFeedback, getAIFeedbackByMessageId, saveEvaluationQuestions, getEvaluationQuestions } = require('../db/db');
 
 const router = express.Router();
 

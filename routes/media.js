@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, param, validationResult } = require('express-validator');
-const { getUserById } = require('../db');
+const { getUserById } = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {
@@ -16,7 +16,7 @@ const handleValidationErrors = (req, res) => {
 // GET /api/media/background - Get background video/image
 router.get('/background', async (req, res) => {
   try {
-    const conn = await require('../db').connection;
+    const conn = await require('../db/db').connection;
 
     // Get active background media
     const [rows] = await conn.query(
@@ -37,7 +37,7 @@ router.get('/background', async (req, res) => {
 // GET /api/media/background/all - Get all background media
 router.get('/background/all', async (req, res) => {
   try {
-    const conn = await require('../db').connection;
+    const conn = await require('../db/db').connection;
 
     const [rows] = await conn.query(
       'SELECT * FROM background_media ORDER BY uploadedAt DESC'
@@ -70,7 +70,7 @@ router.post('/admin/media/background',
         return res.status(403).json({ error: 'Only admins can upload background media' });
       }
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       // If this is set as active, deactivate all other media of the same type
       if (isActive) {
@@ -121,7 +121,7 @@ router.put('/admin/media/background/:id',
         return res.status(403).json({ error: 'Only admins can update background media' });
       }
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       // Check if media exists
       const [existingMedia] = await conn.query(
@@ -188,7 +188,7 @@ router.delete('/admin/media/background/:id',
         return res.status(403).json({ error: 'Only admins can delete background media' });
       }
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       // Delete background media
       const [result] = await conn.query(

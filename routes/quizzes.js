@@ -21,7 +21,7 @@ const {
   createPaper,
   updatePaper,
   getPaperById
-} = require('../db');
+} = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {
@@ -147,7 +147,7 @@ router.put('/:id',
       if (req.body.courseId !== undefined) updateData.courseId = req.body.courseId;
 
       // Update quiz in database
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
       const fields = Object.keys(updateData).map(key => `${key} = ?`);
       const values = Object.values(updateData);
       values.push(req.params.id);

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, param, validationResult } = require('express-validator');
-const { getUserById, updateUser } = require('../db');
+const { getUserById, updateUser } = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {
@@ -82,7 +82,7 @@ router.post('/offline-data',
         return res.status(404).json({ error: 'User not found' });
       }
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
       const syncedActions = [];
       const failedActions = [];
 
@@ -195,7 +195,7 @@ router.get('/status',
         return res.status(404).json({ error: 'User not found' });
       }
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       // Get unsynced actions count
       const [unsyncedResult] = await conn.query(
@@ -233,7 +233,7 @@ router.get('/actions/:userId',
       const { userId } = req.params;
       const { synced } = req.query;
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       let query = 'SELECT * FROM offline_actions WHERE userId = ?';
       const params = [userId];
