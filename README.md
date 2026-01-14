@@ -7,7 +7,7 @@ A Node.js backend API for the Edu Papers Flutter application.
 - User authentication (login)
 - Paper management (upload, approve, view)
 - AI chat functionality
-- Admin panel for paper moderation
+- Admin panel for paper moderation.
 
 ## Installation
 
