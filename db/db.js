@@ -230,8 +230,8 @@ async function createTables() {
   }
 }
 
-// Call createTables on connection
-connection.then(createTables);
+// Call createTables on startup
+createTables();
 
 // Function to populate sample data
 async function populateSampleData() {
