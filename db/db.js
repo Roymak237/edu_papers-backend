@@ -1,20 +1,28 @@
+// Add this at the very top of db.js
+require('dotenv').config();
 const mysql = require('mysql2/promise');
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',
+const connection = mysql.createPool({
+  host: process.env.DB_HOST || '127.0.0.1',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASS || 'Epsilon97rq0',
+  password: process.env.DB_PASS || 'Sololeveling123',
   database: process.env.DB_NAME || 'edu_users',
   connectTimeout: 60000,
   waitForConnections: true,
-  queueLimit: 0
+  queueLimit: 0,
+  connectionLimit: Number(process.env.DB_POOL_LIMIT) || 10,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
 });
 
-connection.then(() => {
-  console.log('Connected to MySQL database');
-}).catch((err) => {
-  console.error('Error connecting to MySQL database:', err);
-});
+connection.getConnection()
+  .then((conn) => {
+    console.log('Connected to MySQL database');
+    conn.release();
+  })
+  .catch((err) => {
+    console.error('Error connecting to MySQL database:', err);
+  });
 
 // Table creation functions
 async function createTables() {
@@ -222,8 +230,8 @@ async function createTables() {
   }
 }
 
-// Call createTables on connection
-connection.then(createTables);
+// Call createTables on startup
+createTables();
 
 // Function to populate sample data
 async function populateSampleData() {

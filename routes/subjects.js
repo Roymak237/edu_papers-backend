@@ -13,7 +13,7 @@ const {
   getCoursesBySubjectId,
   updateCourse,
   deleteCourse
-} = require('../db');
+} = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {

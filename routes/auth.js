@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, param, validationResult } = require('express-validator');
-const { createUser, getUserById, getUserByUsernameOrEmail, getAllUsers, updateUser, logLoginAttempt, logAccountCreation } = require('../db');
+const { createUser, getUserById, getUserByUsernameOrEmail, getAllUsers, updateUser, logLoginAttempt, logAccountCreation } = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {

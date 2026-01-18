@@ -12,7 +12,7 @@ const {
   updateUser,
   getUserById,
   getAllUserLevels
-} = require('../db');
+} = require('../db/db');
 
 // Rate limiter middleware
 const limiter = rateLimit({
@@ -223,7 +223,7 @@ router.get('/:id/content',
         return res.status(400).json({ errors: errors.array() });
       }
     const paperId = req.params.id;
-    const db = require('../db'); // Import database functions
+    const db = require('../db/db'); // Import database functions
 
     // Fetch paper by ID
     const paper = await db.getPaperById(paperId);

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, param, validationResult } = require('express-validator');
-const { getUserById, updateUser, getAllUsers } = require('../db');
+const { getUserById, updateUser, getAllUsers } = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {

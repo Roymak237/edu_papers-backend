@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, param, validationResult } = require('express-validator');
-const { getUserById, updateUser } = require('../db');
+const { getUserById, updateUser } = require('../db/db');
 
 // Helper function to handle validation errors
 const handleValidationErrors = (req, res) => {
@@ -51,7 +51,7 @@ router.post('/generate-questions',
       }
 
       // Store generated questions in database
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
       const insertedQuestions = [];
 
       for (const question of generatedQuestions) {
@@ -99,7 +99,7 @@ router.get('/questions/:subjectId',
     try {
       if (handleValidationErrors(req, res)) return;
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
       const { approved } = req.query;
 
       let query = 'SELECT * FROM ai_generated_questions WHERE subjectId = ?';
@@ -135,7 +135,7 @@ router.get('/questions/course/:courseId',
     try {
       if (handleValidationErrors(req, res)) return;
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
       const { approved } = req.query;
 
       let query = 'SELECT * FROM ai_generated_questions WHERE courseId = ?';
@@ -177,7 +177,7 @@ router.post('/approve-question',
 
       const { questionId, approvedBy, approved } = req.body;
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       // Check if user exists
       const user = await getUserById(approvedBy);
@@ -226,7 +226,7 @@ router.delete('/questions/:id',
     try {
       if (handleValidationErrors(req, res)) return;
 
-      const conn = await require('../db').connection;
+      const conn = await require('../db/db').connection;
 
       const [result] = await conn.query(
         'DELETE FROM ai_generated_questions WHERE id = ?',
